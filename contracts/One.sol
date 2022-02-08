@@ -42,8 +42,12 @@ Zombie[] public zombies;
 /**솔리디티에서 함수는 기본적으로 public으로 선언되네. 즉, 누구나 (혹은 다른 어느 컨트랙트가) 자네 컨트랙트의 함수를 호출하고 코드를 실행할 수 있다는 의미지.
 
 확실히 이는 항상 바람직한 건 아닐 뿐더러, 자네 컨트랙트를 공격에 취약하게 만들 수 있지. 그러니 기본적으로 함수를 private으로 선언하고, 공개할 함수만 public으로 선언하는 것이 좋지. */
-function _createZombie(string _name, uint _dna) private {
-        zombies.push(Zombie(_name, _dna));
+
+    function _createZombie(string _name, uint _dna) private {
+        uint id = zombies.push(Zombie(_name, _dna)) - 1;
+        zombieToOwner[id] = msg.sender;
+        ownerZombieCount[msg.sender]++;
+        NewZombie(id, _name, _dna);
     }
 function _generateRandomDna(string _str) private view returns (uint) {
         uint rand = uint(keccak256(_str));
@@ -99,4 +103,19 @@ function generateZombie(id, name, dna) {
     zombieDescription: "A Level 1 CryptoZombie",
   }
   return zombieDetails
+
+
+
+
+
+
+
+//_매핑_은 솔리디티에서 구조화된 데이터를 저장하는 또다른 방법이지.
+//매핑은 기본적으로 키-값 (key-value) 저장소로, 데이터를 저장하고 검색하는 데 이용된다. 첫번째 예시에서 키는 address이고 값은 uint이다. 두번째 예시에서 키는 uint이고 값은 string이다.
+    mapping (uint => address) public zombieToOwner;
+    mapping (address => uint) ownerZombieCount;
+
+
+//msg.sender를 활용하면 자네는 이더리움 블록체인의 보안성을 이용할 수 있게 되지. 즉, 누군가 다른 사람의 데이터를 변경하려면 해당 이더리움 주소와 관련된 개인키를 훔치는 것 밖에는 다른 방법이 없다는 것이네.
+
 }
