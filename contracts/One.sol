@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.8.11;
 //1. 여기에 솔리디티 버전 적기
 
 //2. 여기에 컨트랙트 생성
@@ -21,5 +21,9 @@ contract ZombieFactory {
 나눗셈: x / y
 모듈로 / 나머지: x % y (이를테면, 13 % 5는 3이다. 왜냐면 13을 5로 나누면 나머지가 3이기 때문이다)
 솔리디티는 지수 연산도 지원하지 (즉, "x의 y승", x^y이지): */
-
+//구조체를 통해 여러 특성을 가진, 보다 복잡한 자료형을 생성할 수 있지.
+ struct Zombie {
+        string name;
+        uint dna;
+    }
 }
