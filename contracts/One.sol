@@ -54,6 +54,7 @@ function _generateRandomDna(string _str) private view returns (uint) {
         return rand % dnaModulus;
     }
 function createRandomZombie(string _name) public {
+  //. require를 활용하면 특정 조건이 참이 아닐 때 함수가 에러 메시지를 발생하고 실행을 멈추게 되지
     require(ownerZombieCount[msg.sender] == 0);
         uint randDna = _generateRandomDna(_name);
         
@@ -121,5 +122,9 @@ function generateZombie(id, name, dna) {
 
 
 //msg.sender를 활용하면 자네는 이더리움 블록체인의 보안성을 이용할 수 있게 되지. 즉, 누군가 다른 사람의 데이터를 변경하려면 해당 이더리움 주소와 관련된 개인키를 훔치는 것 밖에는 다른 방법이 없다는 것이네.
+
+contract ZombieFeeding is ZombieFactory {
+  //상속
+}
 
 }
