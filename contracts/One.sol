@@ -54,7 +54,9 @@ function _generateRandomDna(string _str) private view returns (uint) {
         return rand % dnaModulus;
     }
 function createRandomZombie(string _name) public {
+    require(ownerZombieCount[msg.sender] == 0);
         uint randDna = _generateRandomDna(_name);
+        
         _createZombie(_name, randDna);
     }
 
@@ -102,6 +104,8 @@ function generateZombie(id, name, dna) {
     zombieName: name,
     zombieDescription: "A Level 1 CryptoZombie",
   }
+
+
   return zombieDetails
 
 
