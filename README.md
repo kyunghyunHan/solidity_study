@@ -191,3 +191,55 @@ truffle unbox react
 - 컴트렉트에 5eth를 전송하면 컨트렉트의 잔액은 5ETH가 되어야한다
 - 0.1ETH를 베팅하면 컨트렉트의 잔액은 (5.1)ETH가되어야한다
 - 플레이어는 베팅을 연속해서 두번 할수 없다(베팅한 후에는 항상 결과를 확인해야한디)
+
+
+## interface
+
+- 인터페이스는 컨트랙트와 마찬가지로 contract 키워드를 사용해 생성할 수 있습니다.
+
+다만, 다른 컨트랙트와 상호작용하는 함수만을 선언할 뿐, 다른 함수나 상태 변수를 사용하지 않습니다.
+
+```
+contract KittyInterface {
+  function getKitty(uint256 _id) external view returns (
+    bool isGestating,
+    bool isReady,
+    uint256 cooldownIndex,
+    uint256 nextActionAt,
+    uint256 siringWithId,
+    uint256 birthTime,
+    uint256 matronId,
+    uint256 sireId,
+    uint256 generation,
+    uint256 genes
+  );
+}
+```
+- 이렇게 생성한 인터페이스를 활용하기 위해서는 인자로 주소를 대입해 초기화해주면 됩니다.
+```
+contract KittyInterface {
+  function getKitty(address _id) external view returns (
+    bool isGestating,
+    bool isReady,
+    uint256 cooldownIndex,
+    uint256 nextActionAt,
+    uint256 siringWithId,
+    uint256 birthTime,
+    uint256 matronId,
+    uint256 sireId,
+    uint256 generation,
+    uint256 genes
+  );
+}
+
+contract MyContract {
+  address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
+  // 인터페이스를 사용하려면 고유의 address형 주소를 인자로 대입합니다.
+  KittyInterface kitty = KittyInterface(ckAddress)
+
+  function someFunction() public {
+    // 이제 `kitty`가 가리키고 있는 컨트랙트에서 `getKitty` 함수를 호출할 수 있습니다.
+    uint myKitty = kitty.getKitty(msg.sender);
+  }
+}
+```
