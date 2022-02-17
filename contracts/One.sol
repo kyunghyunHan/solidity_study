@@ -44,6 +44,8 @@ Zombie[] public zombies;
 확실히 이는 항상 바람직한 건 아닐 뿐더러, 자네 컨트랙트를 공격에 취약하게 만들 수 있지. 그러니 기본적으로 함수를 private으로 선언하고, 공개할 함수만 public으로 선언하는 것이 좋지. */
 
     function _createZombie(string _name, uint _dna) private {
+      // function _createZombie(string _name, uint _dna) internal { 함수가 정의된 컨트랙트를 상속하는 컨트랙트에서도 접근이 가능
+      // external = 함수가 컨트랙트 바깥에서만 호출될 수 잇고 컨트랙트 내의 다름 함수에 의해 호출될 수 없다는점을 제외하면 public과 동일
         uint id = zombies.push(Zombie(_name, _dna)) - 1;
         zombieToOwner[id] = msg.sender;
         ownerZombieCount[msg.sender]++;
