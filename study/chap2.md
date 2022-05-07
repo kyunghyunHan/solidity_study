@@ -49,3 +49,24 @@ function sayHiToVitalik(string _name) public returns (string) {
   return "Hi!";
 }
 ```
+
+## 상속
+```solidity
+contract Doge {
+  function catchphrase() public returns (string) {
+    return "So Wow CryptoDoge";
+  }
+}
+
+contract BabyDoge is Doge {
+  function anotherCatchphrase() public returns (string) {
+    return "Such Moon BabyDoge";
+  }
+}
+```
+## Import
+## Storage vs Memory
+## 좀비 DNA
+##  함수 접근 제어자 더 알아보기
+## 좀비가 무엇을 먹나요?
+## 인터페이스 
