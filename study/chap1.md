@@ -6,3 +6,11 @@ contract HelloWorld {
 
 }
 ```
+## 상태변수
+- 상태 변수는 컨트랙트 저장소에 영구적으로 저장
+```
+contract Example {
+  // 이 변수는 블록체인에 영구적으로 저장된다
+  uint myUnsignedInteger = 100;
+}
+```
