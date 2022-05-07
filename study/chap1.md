@@ -24,7 +24,7 @@ contract Example {
 ```
 ## 구조체
 - 좀 더 복잡한 자료형을 필요로 할 때가 가끔 있을 거네. 이를 위해 솔리디티는 구조체를 제공
-```sol
+```solidity
 struct Person {
   uint age;
   string name;
