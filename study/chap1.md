@@ -69,3 +69,34 @@ people.push(satoshi);
 //이 두 코드를 조합하여 깔끔하게 한 줄로 표현할 수 있네:
 people.push(Person(16, "Vitalik"));
 ```
+
+## Private / Public 함수
+- 그러니 기본적으로 함수를 private으로 선언하고, 공개할 함수만 public으로 선언하는 것이 좋지.
+
+```solidity
+uint[] numbers;
+
+function _addToArray(uint _number) private {
+  numbers.push(_number);
+}
+```
+## 함수 더 알아보기
+
+- 반환값:함수에서 어떤 값을 반환 받으려면 다음과 같이 선언해야 하네:
+```solidity
+string greeting = "What's up dog";
+
+function sayHello() public returns (string) {
+  return greeting;
+}
+```
+- 함수제어자 : view : 함수를 view 함수로 선언한다네. 이는 함수가 데이터를 보기만 하고 변경하지 않는다는 뜻이지:
+```solidity
+function sayHello() public view returns (string) {
+```
+- 함수제어자 : pure :  함수는 앱에서 읽는 것도 하지 않고, 다만 반환값이 함수에 전달된 인자값에 따라서 달라지지. 그러니 이 경우에 함수를 pure로 선언
+```solidity
+function _multiply(uint a, uint b) private pure returns (uint) {
+  return a * b;
+}
+```
