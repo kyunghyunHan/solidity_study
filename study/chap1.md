@@ -49,3 +49,22 @@ Person[] people; // 이는 동적 배열로, 원소를 계속 추가할 수 있�
 ```sol
 Person[] public people;
 ```
+## 함수선언
+- 함수 인자명을 언더스코어(_)로 시작해서 전역 변수와 구별하는 것이 관례이네 (의무는 아님). 
+
+```sol
+function eatHamburgers(string _name, uint _amount) {
+
+}
+```
+## 구조체와 배열 활용하기
+
+```sol
+// 새로운 사람을 생성한다:
+Person satoshi = Person(172, "Satoshi");
+
+// 이 사람을 배열에 추가한다:
+people.push(satoshi);
+//이 두 코드를 조합하여 깔끔하게 한 줄로 표현할 수 있네:
+people.push(Person(16, "Vitalik"));
+```
