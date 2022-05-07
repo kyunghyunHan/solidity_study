@@ -8,7 +8,7 @@ contract HelloWorld {
 ```
 ## 상태변수
 - 상태 변수는 컨트랙트 저장소에 영구적으로 저장
-```
+```solidity
 contract Example {
   // 이 변수는 블록체인에 영구적으로 저장된다
   uint myUnsignedInteger = 100;
@@ -33,7 +33,7 @@ struct Person {
 
 ## 배열
 - 솔리디티에는 _정적_ 배열과 _동적_ 배열
-```sol
+```solidity
 // 2개의 원소를 담을 수 있는 고정 길이의 배열:
 uint[2] fixedArray;
 // 또다른 고정 배열으로 5개의 스트링을 담을 수 있다:
@@ -41,25 +41,25 @@ string[5] stringArray;
 // 동적 배열은 고정된 크기가 없으며 계속 크기가 커질 수 있다:
 uint[] dynamicArray;
 ```
-```sol
+```solidity
 Person[] people; // 이는 동적 배열로, 원소를 계속 추가할 수 있다.
 ```
 - 상태 변수가 블록체인에 영구적으로 저장될 수 있다는 걸 기억하나? 그러니 이처럼 구조체의 동적 배열을 생성하면 마치 데이터베이스처럼 컨트랙트에 구조화된 데이터를 저장하는 데 유용하네.
 - Public 배열 : 다른 컨트랙트들이 이 배열을 읽을 수 있게 되지 (쓸 수는 없네). 이는 컨트랙트에 공개 데이터를 저장할 때 유용한 패턴이지.
-```sol
+```solidity
 Person[] public people;
 ```
 ## 함수선언
 - 함수 인자명을 언더스코어(_)로 시작해서 전역 변수와 구별하는 것이 관례이네 (의무는 아님). 
 
-```sol
+```solidity
 function eatHamburgers(string _name, uint _amount) {
 
 }
 ```
 ## 구조체와 배열 활용하기
 
-```sol
+```solidity
 // 새로운 사람을 생성한다:
 Person satoshi = Person(172, "Satoshi");
 
