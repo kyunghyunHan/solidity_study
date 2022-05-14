@@ -100,6 +100,9 @@ NormalStruct normal = NormalStruct(10, 20, 30);
 MiniMe mini = MiniMe(10, 20, 30); 
 ```
 ## 시간단위
+- now 변수를 쓰면 현재의 유닉스 타입스탬프
+- seconds, minutes, hours, days, weeks, years 단위 포함
+-  1 minutes는 60, 1 hours는 3600(60초 x 60 분), 1 days는 86400(24시간 x 60분 x 60초) 같이 변환
 ```solidity
 uint lastUpdated;
 
@@ -114,6 +117,7 @@ function fiveMinutesHavePassed() public view returns (bool) {
 }
 ```
 ## 좀비 재사용 대기 시간
+- pricate또는 internal함수에 인수로서 구조체의 srorage포인터를 전달가능
 ```solidity
 function _doStuff(Zombie storage _zombie) internal {
   // _zombie로 할 수 있는 것들을 처리
@@ -123,6 +127,7 @@ function _doStuff(Zombie storage _zombie) internal {
 ```solidity
 ```
 ## 함수 제어자의 또 다른 특징
+- 함수제어자는 인수또한 받을수 있음
 ```solidity
 // 사용자의 나이를 저장하기 위한 매핑
 mapping (uint => uint) public age;
@@ -156,9 +161,14 @@ function driveCar(uint _userId) public olderThan(16, _userId) {
 }
 ```
 ## View함수를 사용해 절약하기
-```solidity
-```
+- view 함수는 사용자의 의해 외부에서 호출되었을 때 가스를 전혀 소모하지 않는다
+- view 함수가 블록체인 상에서 어떤 것도 수정하지 않기 때문 데이터읽기
+- 가능한 external view함수를 쓰는것 (가스 사용 최적화)
 ## Storage는 비싸다
+- solidity에서 비싼 연산중 하나인 storage를 쓰는것 그중에서도 쓰기연산
+- 데이터의 일부를 쓰거나 바꿀때마다 블록체인에 영구적으로 기록되기 때문
+- 비용을 최소화하기 위해 진짜 필요한 경우 아니면 storage에 데이터를 쓰지 않는 것이 좋음
+- Storage보다는 memory사용해서 함수끝날때까지만 사용 (가스절약)
 ```solidity
 function getArray() external pure returns(uint[]) {
   // 메모리에 길이 3의 새로운 배열을 생성한다.
@@ -189,7 +199,4 @@ function getEvens() pure external returns(uint[]) {
   }
   return evens;
 }
-```
-## 마무리
-```solidity
 ```
