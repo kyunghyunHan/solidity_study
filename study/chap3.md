@@ -56,33 +56,132 @@ contract Ownable {
 
 ## OnlyOwner함수 제어자
 ```solidity
+/**
+ * @dev Throws if called by any account other than the owner.
+ */
+modifier onlyOwner() {
+  require(msg.sender == owner);
+  _;
+}
+//다음과 같이 사용
+
+contract MyContract is Ownable {
+  event LaughManiacally(string laughter);
+
+  // 아래 `onlyOwner`의 사용 방법을 잘 보게:
+  function likeABoss() external onlyOwner {
+    LaughManiacally("Muahahahaha");
+  }
+}
 ```
 ## Gas
 ```solidity
+struct NormalStruct {
+  uint a;
+  uint b;
+  uint c;
+}
+
+struct MiniMe {
+  uint32 a;
+  uint32 b;
+  uint c;
+}
+
+// `mini`는 구조체 압축을 했기 때문에 `normal`보다 가스를 조금 사용할 것이네.
+NormalStruct normal = NormalStruct(10, 20, 30);
+MiniMe mini = MiniMe(10, 20, 30); 
 ```
 ## 시간단위
 ```solidity
+uint lastUpdated;
+
+// `lastUpdated`를 `now`로 설정
+function updateTimestamp() public {
+  lastUpdated = now;
+}
+
+// 마지막으로 `updateTimestamp`가 호출된 뒤 5분이 지났으면 `true`를, 5분이 아직 지나지 않았으면 `false`를 반환
+function fiveMinutesHavePassed() public view returns (bool) {
+  return (now >= (lastUpdated + 5 minutes));
+}
 ```
 ## 좀비 재사용 대기 시간
 ```solidity
+function _doStuff(Zombie storage _zombie) internal {
+  // _zombie로 할 수 있는 것들을 처리
+}
 ```
 ## Public함수 보안
 ```solidity
 ```
 ## 함수 제어자의 또 다른 특징
 ```solidity
+// 사용자의 나이를 저장하기 위한 매핑
+mapping (uint => uint) public age;
+
+// 사용자가 특정 나이 이상인지 확인하는 제어자
+modifier olderThan(uint _age, uint _userId) {
+  require (age[_userId] >= _age);
+  _;
+}
+
+// 차를 운전하기 위햐서는 16살 이상이어야 하네(적어도 미국에서는).
+// `olderThan` 제어자를 인수와 함께 호출하려면 이렇게 하면 되네:
+function driveCar(uint _userId) public olderThan(16, _userId) {
+  // 필요한 함수 내용들
+}
 ```
 ## 좀비 제어자
 ```solidity
+// 사용자의 나이를 저장하기 위한 매핑
+mapping (uint => uint) public age;
+
+// 사용자가 특정 나이 이상인지 확인하는 제어자
+modifier olderThan(uint _age, uint _userId) {
+  require (age[_userId] >= _age);
+  _;
+}
+
+// 차를 운전하기 위햐서는 16살 이상이어야 하네(적어도 미국에서는).
+function driveCar(uint _userId) public olderThan(16, _userId) {
+  // 필요한 함수 내용들
+}
 ```
 ## View함수를 사용해 절약하기
 ```solidity
 ```
 ## Storage는 비싸다
 ```solidity
+function getArray() external pure returns(uint[]) {
+  // 메모리에 길이 3의 새로운 배열을 생성한다.
+  uint[] memory values = new uint[](3);
+  // 여기에 특정한 값들을 넣는다.
+  values.push(1);
+  values.push(2);
+  values.push(3);
+  // 해당 배열을 반환한다.
+  return values;
+}
 ```
 ## For반복문
 ```solidity
+function getEvens() pure external returns(uint[]) {
+  uint[] memory evens = new uint[](5);
+  // 새로운 배열의 인덱스를 추적하는 변수
+  uint counter = 0;
+  // for 반복문에서 1부터 10까지 반복함
+  for (uint i = 1; i <= 10; i++) {
+    // `i`가 짝수라면...
+    if (i % 2 == 0) {
+      // 배열에 i를 추가함
+      evens[counter] = i;
+      // `evens`의 다음 빈 인덱스 값으로 counter를 증가시킴
+      counter++;
+    }
+  }
+  return evens;
+}
 ```
 ## 마무리
 ```solidity
