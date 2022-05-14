@@ -44,9 +44,8 @@ contract Ownable {
   }
 }
 ```
-- 생성자(Constructor): function Ownable()는 생성자이네. 컨트랙트와 동일한 이름을 가진,생략할 수 있는 특별한 함수이지. 이 함수는 컨트랙트가 생성될 때 딱 한 번만 실행된다네.
-- 함수 제어자(Function Modifier): modifier onlyOwner(). 제어자는 다른 함수들에 대한 접근을 제어하기 위해 사용되는 일종의 유사 함수라네. 보통 함수 실행 전의 요구사항 충족 여부를 확인하는 데에 사용하지. onlyOwner의 경우에는 접근을 제한해서 오직 컨트랙트의 소유자만 해당 함수를 실행할 수 있도록 하기 위해 사용될 수 있지. 우리는 다음 챕터에서 함수 제어자에 대해 더 살펴보고, _;라는 이상한 것이 뭘 하는 것인지 알아볼 것이네.
-- indexed 키워드: 이건 걱정하지 말게. 우린 아직 이게 필요하지 않아.
+- 생성자(Constructor): function Ownable()는 생성자이네. 컨트랙트와 동일한 이름을 가진,생략할 수 있는 특별한 함수. 이 함수는 컨트랙트가 생성될 때 딱 한 번만 실행.
+- 함수 제어자(Function Modifier): modifier onlyOwner(). 제어자는 다른 함수들에 대한 접근을 제어하기 위해 사용되는 일종의 유사 함수. 보통 함수 실행 전의 요구사항 충족 여부를 확인하는 데에 사용. onlyOwner의 경우에는 접근을 제한해서 오직 컨트랙트의 소유자만 해당 함수를 실행할 수 있도록 하기 위해 사용될 수 있다. 
 -  Ownable 컨트랙트는 기본적으로 다음과 같은 것들을 하네:
 ```
 - 컨트랙트가 생성되면 컨트랙트의 생성자가 owner에 msg.sender(컨트랙트를 배포한 사람)를 대입한다.
@@ -55,6 +54,8 @@ contract Ownable {
 ```
 
 ## OnlyOwner함수 제어자
+- 함수제어자는 함수처럼 보이자만 fuction대신 modifier을사용
+- 함수 정의부 끝에 해당 함수의 작동방식을 바꾸도록 제어자의 이름을 붙일수 있음
 ```solidity
 /**
  * @dev Throws if called by any account other than the owner.
@@ -68,13 +69,19 @@ modifier onlyOwner() {
 contract MyContract is Ownable {
   event LaughManiacally(string laughter);
 
-  // 아래 `onlyOwner`의 사용 방법을 잘 보게:
+  // 아래 `onlyOwner`의 사용 방법
   function likeABoss() external onlyOwner {
     LaughManiacally("Muahahahaha");
   }
 }
 ```
 ## Gas
+- Dapp함수를 실행할떄 마다 가스 사용
+- 얼마나 많은 가스를 필요하는지는  그함수의 로직이 얼마나 복잡한지에 따라 달라짐
+- 함수를 실행하는 것은 사용자들에게 실제 돈을 쓰게 하기 때문에 이더리움에서 코드 최적화는 가장 중요
+- 무한 반복문을 써서 네트워크를 방해하거나 자원소모가 큰 연산을 써서 네트워크 자원을 모두 사용하지 못하도록
+- uint대신 uint8을 사용하는것은 가스소모를 줄이는데 아무영향없다 (uint크기에 상관없이 256비트의 저장공간을 미리 잡아 놓기 때문에)
+- struct안에서는 예외 (더 작은 크기의 uint사용)
 ```solidity
 struct NormalStruct {
   uint a;
