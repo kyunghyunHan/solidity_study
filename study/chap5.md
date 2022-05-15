@@ -1,6 +1,9 @@
 # 챕터5
 
 ## 이더리움 상의 토큰
+
+- ERC 20 :대체 가능
+- ERC721 :대체 불가능
 ## ERC721 표준 , 다중 상속
 ```solidity
 contract ERC721 {
@@ -34,7 +37,18 @@ function takeOwnership(uint256 _tokenId) public;
 ## ERC721: Approve
 ## ERC721: takeOwnership
 ## 오버플로우 막기
+- 오버플로우 : 
+```solidity
+uint8 number = 255;
+number++;
+```
+```solidity 
+using SafeMath for uint256;
 
+uint256 a = 5;
+uint256 b = a.add(3); // 5 + 3 = 8
+uint256 c = a.mul(2); // 5 * 2 = 10
+```
 ## SafeMath 파트 2
  ```solidity
  library SafeMath {
